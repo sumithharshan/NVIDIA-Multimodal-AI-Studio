@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Unified AI Chat Studio
 
-## Getting Started
+A professional multi-provider AI chat studio built with Next.js, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+Supports:
+
+- OpenAI / ChatGPT API
+- Anthropic / Claude API
+- Google Gemini API
+- xAI / Grok API
+- NVIDIA AI / NIM API
+
+## Features
+
+- Multi-provider settings page
+- API key storage in browser localStorage, with optional `.env.local` server keys
+- Auto Router to pick the best provider for the task
+- Manual provider selection
+- Provider fallback if the selected provider fails
+- Streaming responses with real-time typing effect
+- Stop generation
+- Edit user message and resend
+- Regenerate assistant response
+- Chat history in localStorage
+- Upload TXT, Markdown, JSON, CSV, PDF, and images
+- Paste screenshots directly into chat with Ctrl+V / Cmd+V
+- Prompt preset chips
+- Instruction profiles
+- Upload instruction files as TXT, MD, or PDF
+- Agent modes: Auto, Research, Code, Writer
+- Markdown rendering
+- Export chat as Markdown
+- Dark modern UI with Inter font
+
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Windows PowerShell
 
-## Learn More
+```powershell
+if (Test-Path .next) { Remove-Item -Recurse -Force .next }
+npm install
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Optional .env.local
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+You can either enter keys in the Settings page, or create `.env.local`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```env
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+XAI_API_KEY=your_xai_key
+NVIDIA_API_KEY=your_nvidia_key
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
+```
 
-## Deploy on Vercel
+## Recommended setup
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Open Settings.
+2. Add your API key for each provider you want to use.
+3. Test each provider.
+4. Set Active Provider to `Auto Router`.
+5. Keep Fallback Models enabled.
+6. Save settings.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+Model IDs change over time. Use the Custom Model ID field when your provider gives a newer model name.
