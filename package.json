@@ -1,5 +1,5 @@
 {
-  "name": "nvidia-multi-agent-nextjs",
+  "name": "unified-ai-chat-studio",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -9,19 +9,19 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "^10.4.20",
     "next": "^15.0.0",
+    "pdfjs-dist": "latest",
     "postcss": "^8.4.49",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-markdown": "latest",
     "remark-gfm": "latest",
-    "tailwindcss": "^3.4.17",
-    "typescript": "latest",
-    "pdfjs-dist": "latest"
-  },
-  "devDependencies": {}
+    "tailwindcss": "^4.3.1",
+    "typescript": "latest"
+  }
 }

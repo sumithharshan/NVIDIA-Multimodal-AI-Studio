@@ -1,20 +1,68 @@
 "use client";
 
 import Link from "next/link";
+import ProviderBadge from "./ProviderBadge";
+import { ProviderId } from "@/lib/types";
 
-export default function TopNav({ model, onExport, onClear }: { model: string; onExport?: () => void; onClear?: () => void }) {
+export default function TopNav({
+  provider,
+  model,
+  instructionsActive,
+  fallback,
+  onExport,
+  onClear,
+  onMenuClick,
+}: {
+  provider: ProviderId;
+  model: string;
+  instructionsActive: boolean;
+  fallback: boolean;
+  onExport: () => void;
+  onClear: () => void;
+  onMenuClick?: () => void;
+}) {
   return (
-    <header className="sticky top-0 z-10 border-b border-white/10 bg-slate-950/70 px-4 py-3 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.24em] text-blue-300">Multi-agent workspace</p>
-          <h2 className="truncate text-base font-semibold text-white">{model || "No model selected"}</h2>
+    <header className="panel-surface relative z-10 flex items-center justify-between gap-3 border-b border-white/8 px-4 py-3">
+      <div className="flex min-w-0 items-center gap-3">
+        {onMenuClick ? (
+          <button
+            type="button"
+            onClick={onMenuClick}
+            aria-label="Open chat list"
+            className="btn-ghost rounded-xl p-2.5 lg:hidden"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden>
+              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+            </svg>
+          </button>
+        ) : null}
+        <div className="min-w-0">
+          <div className="flex flex-wrap items-center gap-2">
+            <ProviderBadge provider={provider} model={provider === "auto" ? "smart routing" : model} />
+            {instructionsActive ? (
+              <span className="rounded-full border border-violet-400/20 bg-violet-400/10 px-2.5 py-1 text-[11px] font-semibold text-violet-200">
+                Instructions active
+              </span>
+            ) : null}
+            {fallback ? (
+              <span className="rounded-full border border-amber-400/20 bg-amber-400/10 px-2.5 py-1 text-[11px] font-semibold text-amber-200">
+                Fallback on
+              </span>
+            ) : null}
+          </div>
+          <p className="mt-1 hidden text-xs text-slate-500 sm:block">Unified AI Chat Studio</p>
         </div>
-        <nav className="flex items-center gap-2">
-          {onExport && <button onClick={onExport} className="rounded-2xl border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/10">Export</button>}
-          {onClear && <button onClick={onClear} className="rounded-2xl border border-white/10 px-3 py-2 text-sm text-slate-200 transition hover:bg-white/10">Clear</button>}
-          <Link href="/settings" className="rounded-2xl bg-blue-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-400">Settings</Link>
-        </nav>
+      </div>
+      <div className="flex shrink-0 gap-2">
+        <button onClick={onExport} className="btn-ghost hidden rounded-xl px-3 py-2 text-xs sm:inline-flex">
+          Export
+        </button>
+        <button onClick={onClear} className="btn-ghost rounded-xl px-3 py-2 text-xs">
+          Clear
+        </button>
+        <Link href="/settings" className="btn-ghost rounded-xl px-3 py-2 text-xs font-medium text-white">
+          Settings
+        </Link>
       </div>
     </header>
   );

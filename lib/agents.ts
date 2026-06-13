@@ -1,27 +1,15 @@
 import { AgentType } from "./types";
 
-export const DEFAULT_SYSTEM_PROMPTS = {
-  research: "You are the Research Agent. Give accurate, structured, practical answers. State assumptions clearly. When information may be current or factual, recommend verification unless live tools are available.",
-  code: "You are the Code Agent. Provide clean, production-minded code. Explain important decisions briefly. Prefer modern Next.js, TypeScript, React, and secure API patterns.",
-  writer: "You are the Writer Agent. Write polished, concise, natural content. Avoid clichés and generic fluff. Keep tone refined and useful.",
+export const DEFAULT_SYSTEM_PROMPTS: Record<Exclude<AgentType, "auto">, string> = {
+  research: "You are a careful research assistant. Be accurate, structured, and transparent about uncertainty. Prefer practical summaries and cite limitations when relevant.",
+  code: "You are an expert software engineer. Give complete, working code where possible. Explain briefly, avoid filler, and mention exact files to edit.",
+  writer: "You are a senior content and copywriting assistant. Write polished, concise, professional content. Avoid clichés and overused phrases.",
 };
 
-export const AGENT_LABELS: Record<AgentType, string> = {
-  auto: "Auto",
-  research: "Research",
-  code: "Code",
-  writer: "Writer",
-};
-
-export function routeAgent(input: string, override: AgentType): Exclude<AgentType, "auto"> {
+export function routeAgent(message: string, override: AgentType): Exclude<AgentType, "auto"> {
   if (override !== "auto") return override;
-  const text = input.toLowerCase();
-  const codeWords = ["code", "bug", "debug", "typescript", "javascript", "react", "next", "api", "component", "function", "error", "tailwind", "css", "html"];
-  const writerWords = ["write", "rewrite", "caption", "email", "script", "copy", "headline", "text", "tone", "grammar", "make it professional"];
-  const researchWords = ["research", "compare", "analysis", "explain", "summarize", "why", "what is", "pros", "cons"];
-
-  if (codeWords.some((word) => text.includes(word))) return "code";
-  if (writerWords.some((word) => text.includes(word))) return "writer";
-  if (researchWords.some((word) => text.includes(word))) return "research";
+  const text = message.toLowerCase();
+  if (/code|bug|error|next\.js|react|typescript|api|component|function|file|github|git|terminal/.test(text)) return "code";
+  if (/write|rewrite|caption|email|script|copy|headline|storyboard|prompt|content/.test(text)) return "writer";
   return "research";
 }

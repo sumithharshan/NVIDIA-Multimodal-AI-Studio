@@ -1,20 +1,36 @@
-# NVIDIA Multi-Agent Next.js UI
+# Unified AI Chat Studio
 
-A dark-mode Next.js starter for NVIDIA AI / NIM with:
+A professional multi-provider AI chat studio built with Next.js, TypeScript, and Tailwind CSS.
 
-- Settings page for API key + model selection
-- Multi-agent chat (Auto / Research / Code / Writer)
-- File uploads (TXT / MD / CSV / JSON / PDF / images / audio samples)
-- PDF text extraction in the browser
-- Vision chat with image input
-- Image generation and image editing support
-- NVIDIA Riva Translate support
-- NVIDIA Magpie TTS voice output route
-- Browser speech input from microphone
-- Browser voice playback for assistant messages
-- Paste screenshots directly into the chat box
-- Stop generation button
-- Local chat history in `localStorage`
+Supports:
+
+- OpenAI / ChatGPT API
+- Anthropic / Claude API
+- Google Gemini API
+- xAI / Grok API
+- NVIDIA AI / NIM API
+
+## Features
+
+- Multi-provider settings page
+- API key storage in browser localStorage, with optional `.env.local` server keys
+- Auto Router to pick the best provider for the task
+- Manual provider selection
+- Provider fallback if the selected provider fails
+- Streaming responses with real-time typing effect
+- Stop generation
+- Edit user message and resend
+- Regenerate assistant response
+- Chat history in localStorage
+- Upload TXT, Markdown, JSON, CSV, PDF, and images
+- Paste screenshots directly into chat with Ctrl+V / Cmd+V
+- Prompt preset chips
+- Instruction profiles
+- Upload instruction files as TXT, MD, or PDF
+- Agent modes: Auto, Research, Code, Writer
+- Markdown rendering
+- Export chat as Markdown
+- Dark modern UI with Inter font
 
 ## Run
 
@@ -23,7 +39,13 @@ npm install
 npm run dev
 ```
 
-## Windows PowerShell reset
+Open:
+
+```text
+http://localhost:3000
+```
+
+## Windows PowerShell
 
 ```powershell
 if (Test-Path .next) { Remove-Item -Recurse -Force .next }
@@ -31,36 +53,28 @@ npm install
 npm run dev
 ```
 
-## Recommended model usage
+## Optional .env.local
 
-- `qwen/qwen3.5-397b-a17b` → image understanding / multimodal chat
-- `qwen/qwen3.5-122b-a10b` → multimodal chat + tool-calling style tasks
-- `qwen/qwen-image` → text-to-image generation
-- `qwen/qwen-image-edit` → image editing
-- `qwen/qwen2.5-coder-32b-instruct` → coding tasks
-- `nvidia/riva-translate-4b-instruct-v1.1` → translation
-- `nvidia/magpie-tts-zeroshot` → text-to-speech voice output
+You can either enter keys in the Settings page, or create `.env.local`:
 
-## Speech and translation
+```env
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+XAI_API_KEY=your_xai_key
+NVIDIA_API_KEY=your_nvidia_key
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
+```
 
-When the Riva Translate model is selected, the chat box shows source and target language dropdowns.
+## Recommended setup
 
-When the Magpie TTS model is selected, the send button becomes **Generate Voice** and the assistant response includes an audio player when the endpoint returns audio.
+1. Open Settings.
+2. Add your API key for each provider you want to use.
+3. Test each provider.
+4. Set Active Provider to `Auto Router`.
+5. Keep Fallback Models enabled.
+6. Save settings.
 
-Every assistant message also has a **Voice** button that uses the browser's built-in speech synthesis as a fast fallback.
+## Notes
 
-## Important TTS note
-
-NVIDIA Magpie TTS is a specialized speech endpoint. This starter includes `/api/tts` using the common OpenAI-style `/audio/speech` pattern. If NVIDIA's hosted Magpie API returns a schema error, update:
-
-- `app/api/tts/route.ts`
-
-with the exact API Reference payload from your NVIDIA Build model page.
-
-## Clipboard support
-
-You can paste screenshots directly into the chat textarea with `Ctrl+V` / `Cmd+V`.
-
-## Local storage
-
-Settings and chats are stored in the browser only.
+Model IDs change over time. Use the Custom Model ID field when your provider gives a newer model name.
