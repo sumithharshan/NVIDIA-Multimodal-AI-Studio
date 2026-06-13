@@ -14,6 +14,7 @@
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "autoprefixer": "^10.4.20",
+    "jszip": "^3.10.1",
     "next": "^15.0.0",
     "pdfjs-dist": "latest",
     "postcss": "^8.4.49",
@@ -23,5 +24,9 @@
     "remark-gfm": "latest",
     "tailwindcss": "^4.3.1",
     "typescript": "latest"
+  },
+  "devDependencies": {
+    "@types/jszip": "^3.4.0",
+    "eslint": "^10.5.0"
   }
 }
